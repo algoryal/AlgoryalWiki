@@ -22,6 +22,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<script src="https://kit.fontawesome.com/692df9585f.js"></script>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="./js/includeHTML.js"></script>
 
 </head>
 <body>
@@ -94,46 +95,10 @@
 			</section>
 
 			<br>
-
+			
 			<section id="page-content">
-				<div id="PAGE--home" class="wiki-page" v-if="isPageSelected('Home')">
-
-					<p>
-						<img src="https://algoryal.github.io/AlgoryalResources/Images/BANNER.png" alt="Algoryal" style="max-width: 700px; height: auto;">
-					</p>
-					<p>
-						<strong>Welcome to the Algoryal wiki!</strong>
-						<br>
-					Here you’ll find information about the Algoryal company. The wiki includes guides, recommendations, and explanations. The wiki is designed for internal use but feel free to read it anyway ;)
-					</p>
-				</div>
-				<div id="PAGE--algoryalapi" class="wiki-page" v-if="isPageSelected('AlgoryalAPI')">
-					
-					<p>
-						<img src="https://algoryal.github.io/AlgoryalResources/Images/API-BANNER.png" alt="AlgoryalAPI" style="max-width: 700px; height: auto;">
-					</p>
-					<p>
-						The AlgoryalAPI is the core of all Algoryal projects. The API is accessible by anyone but is designed for internal use. We use the API to access descriptions, titles, lists, social links, and resources. The API is the central information container for the company.
-					</p>
-					<h1>
-						<a id="How_We_Use_The_API_5"></a>How We Use The API
-					</h1>
-					<p>
-						We have developed tools for accessing data from the API. We have a Python module and a few tools for accessing the API via JS and Jekyll. All of our tools are available on <strong>GitHub</strong> and are licensed under the <em>GNU GPL v.3.0</em>.
-					</p>
-					<h1>
-						<a id="How_The_API_Works_9"></a>
-						How The API Works
-					</h1>
-					<p>
-						The API consists of a <em>Firebase Real-time Database</em> containing all information. We access the data by simply doing requests to the database’s <strong>JSON</strong> files. It works like this:
-					</p>
-					<ul>
-						<li>We store some basic and general info about the company in the database in a bucket called: “Info”.</li>
-						<li>We can access the data by going to this URL: <code>https://algoryalapi.firebaseio.com/Info.json</code>.</li>
-						<li>The URL consists of a <em>firebase-url</em>, a <em>sub-folder/bucket</em> and a <em>.json extension</em>.</li>
-					</ul>
-				</div>
+				<div id="PAGE--home" w3-include-html="./Pages/home.html" class="wiki-page" v-if="isPageSelected('Home')"></div>
+				<div id="PAGE--algoryalapi" w3-include-html="./Pages/algoryalapi.html" class="wiki-page" v-if="isPageSelected('AlgoryalAPI')"></div>
 			</section>
 		</div>
 
@@ -145,14 +110,23 @@
 		<footer class="dark">
 			Algoryal &copy; Edvard Busck-Nielsen 2019
 		</footer>
+
+		
 	</div>
+
+	<script>
+		w3.includeHTML();
+	</script>
 
 	<!-- Vue.js -->
 	<script type="text/javascript" src="js/main_vue.js"></script>
 
 	<!-- Bootstrap -->
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+	<!-- OTHER JS -->
+	<script type="text/javascript" src="./js/setFavicon.js"></script>
 </body>
 </html>

@@ -5,22 +5,31 @@ new Vue({
 	data: {
 
 		algoryal_api_ulr: "https://algoryalapi.firebaseio.com/",
-		favicon: "",
 		search_term: "",
 		no_search_results: true,
 		no_link_search_results: true,
+		current_page: {
+			title: "",
+			date: "",
+			icon: "",
+			content: "",
+			paths: [
+				{title: "WIKI", link: "./"},
+				{title: "", link: "#"}
+			]
+		},
 		wiki_pages: [
 			{
 				title: "Home",
 				date: "22 June 2019",
 				icon: "fas fa-home",
-				content: '/Pages/home.html'
+				content: './Pages/home.html'
 			},
 			{
 				title: "AlgoryalAPI",
 				date: "22 June 2019",
 				icon: "fas fa-server",
-				content: '/Pages/algoryalapi.html'
+				content: './Pages/algoryalapi.html'
 			}
 		],
 		sidebar_links: [
@@ -28,34 +37,17 @@ new Vue({
 			{ title: 'Email', link: 'mailto:com.algoryal@gmail.com' }
 		],
 		sidebar_state: true,
-		current_page: { 
-			title: 'Home',
-			icon: 'fas fa-home',
-			paths: [
-				{title: 'WIKI', link: './'},
-				{title: 'Home', link: '#'}
-			],
-			date: '22 June 2019',
-			content: '/Pages/home.html'
-		},
+	},
+
+	mounted: function() {
+		this.current_page.title = this.wiki_pages[0].title
+		this.current_page.date = this.wiki_pages[0].date;
+		this.current_page.icon = this.wiki_pages[0].icon;
+		this.current_page.content = this.wiki_pages[0].content;
+		this.current_page.paths = [{title: 'WIKI', link: './'},{title: this.wiki_pages[0].title, link: '#'}];
 	},
 
 	methods: {
-
-	  	setFavicon() {
-
-	  		var api_url = this.algoryal_api_ulr+"Media/Images/Logos/web_based_logo.json"
-		    var Httpreq = new XMLHttpRequest(); // a new request
-		    Httpreq.open("GET",api_url,false);
-		    Httpreq.send(null);
-
-		    var json_obj = Httpreq.responseText;
-			this.favicon = json_obj;
-			this.favicon = this.favicon.replace(/['"]+/g, '');
-
-	  		var favicon_link = document.getElementById('favicon');
-	        favicon_link.href = this.favicon;
-	  	},
 
 	  	toggleSidebar() {
 	  		if (this.sidebar_state == true) {
@@ -74,10 +66,20 @@ new Vue({
     	},
 
     	openPage(page) {
+
     		this.current_page.title = page.title;
     		this.current_page.icon = page.icon;
     		this.current_page.paths[1].title = page.title;
     		this.current_page.content = page.content;
+    		this.current_page.date = page.date;
+
+    		document.getElementById("sidebar").style.height = 0+'px';
+    		document.getElementById("v-nav-bar").style.height = 0+'px';
+
+    		document.getElementById("sidebar").style.minHeight = this.scrollHeight+'px';
+    		document.getElementById("v-nav-bar").style.minHeight = this.scrollHeight+'px';
+    		this.includeHTML();
+    		this.includeHTML();
     	},
 
     	goToPath(path) {
@@ -95,14 +97,37 @@ new Vue({
     		} else {
     			return false;
     		}
+    	},
+
+    	includeHTML(cb) {
+			var z, i, elmnt, file, xhttp;
+			z = document.getElementsByTagName("*");
+			for (i = 0; i < z.length; i++) {
+				elmnt = z[i];
+		    	file = elmnt.getAttribute("w3-include-html");
+		    	if (file) {
+		      		xhttp = new XMLHttpRequest();
+		      		xhttp.onreadystatechange = function() {
+		        		if (this.readyState == 4) {
+		          			if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+		          			if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+		          			elmnt.removeAttribute("w3-include-html");
+		          			w3.includeHTML(cb);
+		        		}
+		      		}      
+		      		xhttp.open("GET", file, true);
+		      		xhttp.send();
+		      		return;
+		    	}
+		  	}
     	}
-	},
+    },
 
 	created: function() {
 
-		this.setFavicon();
 		window.addEventListener('resize', this.handleResize);
     	this.handleResize();
+    	this.openPage(this.current_page);
     	this.includeHTML();
 	},
 
@@ -148,11 +173,25 @@ new Vue({
 
 			var api_url = this.algoryal_api_ulr+"Media/Images/Banners/wiki_banner_cropped_transparent.json"
 		    var Httpreq = new XMLHttpRequest(); // a new request
-		    Httpreq.open("GET",api_url,false);
+		    Httpreq.open("GET",api_url, false);
 		    Httpreq.send(null);
 
 		    var json_obj = Httpreq.responseText;
 			return json_obj.replace(/['"]+/g, '');
+		},
+
+		favicon: function() {
+			var api_url = this.algoryal_api_ulr+"Media/Images/Logos/web_based_logo.json"
+		    var Httpreq = new XMLHttpRequest(); // a new request
+		    Httpreq.open("GET",api_url, false);
+		    Httpreq.send(null);
+
+		    var json_obj = Httpreq.responseText;
+			return json_obj.replace(/['"]+/g, '');
+		},
+
+		scrollHeight: function() {
+			return document.getElementById('page-content').scrollHeight*200;
 		}
 	}
 })
