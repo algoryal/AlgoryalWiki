@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<!-- META -->
+	<meta charset="utf-8">
+  	<meta name="description" content="The official Algoryal wiki. Here you'll find information about the Algoryal company. The wiki includes guides, recommendations, and explanations. The wiki is designed for internal use but feel free to read it anyway.">
+  	<meta name="author" content="Algoryal Edvard Busck-Nielsen">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  	<title>Algoryal - Wiki</title>
+
+  	<!-- LINKS -->
+  	<link rel="stylesheet" type="text/css" href="css/style.css">
+  	<link rel="icon" type="image/png" href="" id="favicon">
+  	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+
+
+	<!-- SCRIPTS -->
+	<!-- [vue] development version, includes helpful console warnings -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://kit.fontawesome.com/692df9585f.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+</head>
+<body>
+
+	<div id="app">
+
+		<div id="side-area">
+
+			<section id="v-nav-bar" class="light">
+
+				<nav>
+					
+					<a href="./"><img :src="favicon" alt="Algoryal" style="max-width: 42px; height: auto;"></a>
+					<br>
+					<br>
+					<a @click="toggleSidebar()"><i class="fas fa-bars"></i></a>
+					<br>
+					<a @click="addPage()"><i class="fas fa-plus"></i></a>
+				</nav>
+			</section>
+
+			<section id="sidebar" v-show="sidebar_state">
+
+				<h1 id="sidebar-header">Algoryal Wiki</h1>
+
+				<!-- Search area -->
+		  		<div id="sidebar-search">
+		  		
+					<input v-model="search_term" placeholder="Search..." id="search-box" class="dark"> 
+		  		</div>
+
+		  		<br>
+		  		<br>
+
+		  		<!-- Pages area -->
+		  		<div id="sidebar-pages"  class="dark">
+
+		  			<h2 class="sidebar-sub-header">Pages</h2>
+					<ul v-for="page in filter_wiki_pages" id="sidebar-pages-list">
+						<li :class="{ active: isPageSelected(page.title) }"><a @click="openPage(page)"><i :class="page.icon"></i> {{ page.title }}</a></li>
+					</ul>
+					<p v-show="no_search_results">No items found...</p>
+		  		</div>
+
+		  		<br>
+
+		  		<!-- Links area -->
+		  		<div id="sidebar-links"  class="dark">
+
+		  			<h2 class="sidebar-sub-header">Links</h2>
+		  			<ul v-for="link in filter_sidebar_links">
+						<a :href="link.link"><li>{{ link.title }}</li></a>
+					</ul>
+					<p v-show="no_link_search_results">No items found...</p>
+		  		</div>
+		  	</section>
+		</div>
+
+		<!-- MAIN -->
+		<div id="content" class="dark">
+			
+			<section id="content-header">
+				
+				<div id="page-path" v-for="path in current_page.paths">
+					<a @click="goToPath(path)">   {{ path.title }}  </a>/
+				</div>
+				<h1 id="page-title" class="color"><i :class="current_page.icon"></i> {{ current_page.title }}</h1>
+				<p id="page-date">{{ current_page.date }}</p>
+				
+			</section>
+
+			<br>
+
+			<section id="page-content">
+				<div id="PAGE--home" class="wiki-page" v-if="isPageSelected('Home')">
+
+					<p>
+						<img src="https://algoryal.github.io/AlgoryalResources/Images/BANNER.png" alt="Algoryal" style="max-width: 700px; height: auto;">
+					</p>
+					<p>
+						<strong>Welcome to the Algoryal wiki!</strong>
+						<br>
+					Here you’ll find information about the Algoryal company. The wiki includes guides, recommendations, and explanations. The wiki is designed for internal use but feel free to read it anyway ;)
+					</p>
+				</div>
+				<div id="PAGE--algoryalapi" class="wiki-page" v-if="isPageSelected('AlgoryalAPI')">
+					
+					<p>
+						<img src="https://algoryal.github.io/AlgoryalResources/Images/API-BANNER.png" alt="AlgoryalAPI" style="max-width: 700px; height: auto;">
+					</p>
+					<p>
+						The AlgoryalAPI is the core of all Algoryal projects. The API is accessible by anyone but is designed for internal use. We use the API to access descriptions, titles, lists, social links, and resources. The API is the central information container for the company.
+					</p>
+					<h1>
+						<a id="How_We_Use_The_API_5"></a>How We Use The API
+					</h1>
+					<p>
+						We have developed tools for accessing data from the API. We have a Python module and a few tools for accessing the API via JS and Jekyll. All of our tools are available on <strong>GitHub</strong> and are licensed under the <em>GNU GPL v.3.0</em>.
+					</p>
+					<h1>
+						<a id="How_The_API_Works_9"></a>
+						How The API Works
+					</h1>
+					<p>
+						The API consists of a <em>Firebase Real-time Database</em> containing all information. We access the data by simply doing requests to the database’s <strong>JSON</strong> files. It works like this:
+					</p>
+					<ul>
+						<li>We store some basic and general info about the company in the database in a bucket called: “Info”.</li>
+						<li>We can access the data by going to this URL: <code>https://algoryalapi.firebaseio.com/Info.json</code>.</li>
+						<li>The URL consists of a <em>firebase-url</em>, a <em>sub-folder/bucket</em> and a <em>.json extension</em>.</li>
+					</ul>
+				</div>
+			</section>
+		</div>
+
+		<br>
+		<br>
+		<br>
+
+		<!-- FOOTER -->
+		<footer class="dark">
+			Algoryal &copy; Edvard Busck-Nielsen 2019
+		</footer>
+	</div>
+
+	<!-- Vue.js -->
+	<script type="text/javascript" src="js/main_vue.js"></script>
+
+	<!-- Bootstrap -->
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

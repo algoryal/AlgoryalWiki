@@ -1,0 +1,11 @@
+<p><img src="https://algoryal.github.io/AlgoryalResources/Images/API-BANNER.png" alt="AlgoryalAPI" style="max-width: 700px; height: auto;"></p>
+<p>The AlgoryalAPI is the core of all Algoryal projects. The API is accessible by anyone but is designed for internal use. We use the API to access descriptions, titles, lists, social links, and resources. The API is the central information container for the company.</p>
+<h1><a id="How_We_Use_The_API_5"></a>How We Use The API</h1>
+<p>We have developed tools for accessing data from the API. We have a Python module and a few tools for accessing the API via JS and Jekyll. All of our tools are available on <strong>GitHub</strong> and are licensed under the <em>GNU GPL v.3.0</em>.</p>
+<h1><a id="How_The_API_Works_9"></a>How The API Works</h1>
+<p>The API consists of a <em>Firebase Real-time Database</em> containing all information. We access the data by simply doing requests to the database’s <strong>JSON</strong> files. It works like this:</p>
+<ul>
+<li>We store some basic and general info about the company in the database in a bucket called: “Info”.</li>
+<li>We can access the data by going to this URL: <code>https://algoryalapi.firebaseio.com/Info.json</code>.</li>
+<li>The URL consists of a <em>firebase-url</em>, a <em>sub-folder/bucket</em> and a <em>.json extension</em>.</li>
+</ul>
