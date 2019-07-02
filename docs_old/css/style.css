@@ -1,0 +1,195 @@
+* {
+	font-family: 'Source Sans Pro', sans-serif;
+	
+}
+
+#app {
+	height: auto;
+}
+
+.light {
+	color: #f4f5f7;
+}
+
+.dark {
+	color: #555;
+}
+
+.color {
+	color: #0747a5;
+}
+
+.active {
+	color: #0747a5;
+	text-decoration: underline;
+}
+
+#sidebar {
+	width: 25%;
+	padding: 3px;
+	overflow: hidden;
+	float: left;
+	padding-left: 3px;
+	background-color: #fff;
+}
+
+#sidebar_header {
+	float: left;
+}
+
+#v-nav-bar {
+	background-color: #0747a5;
+	padding: 2px;
+	width: 4%;
+	overflow: hidden;
+	float: left;
+	text-align: center;
+}
+
+#v-nav-bar nav a {
+	font-size: 30px;
+	margin-top: 3px;
+}
+
+#v-nav-bar nav a i:hover {
+	color: #d3d7df;
+}
+
+#side-area {
+	display: inline;
+	height: auto;
+}
+
+#search-box {
+	width: 95%;
+	padding: 3px;
+	text-align: left;
+	float: left;
+	margin: 2px;
+}
+
+#sidebar-search input:focus {
+	outline-color: #0747a5
+}
+
+#sidebar-pages li {
+	font-size: 20px;
+	list-style-type: none;
+}
+
+#sidebar-pages a {
+	text-decoration: none;
+	color: inherit;
+	cursor: pointer;
+}
+
+#sidebar-pages a:hover {
+	color: #0747a5;
+}
+
+#sidebar-pages li a i{
+	font-size: 19px;
+	padding: 2px;
+}
+
+.sidebar-sub-header {
+	font-size: 15px;
+}
+
+#content {
+	padding-left: 5px;
+	display: inline;
+	float: left;
+	text-align: left;
+	width:71%;	
+	background-color: #fff;
+	height: auto;
+}
+
+#content-header {
+	padding: 3px;
+	margin-top: 40px;
+	border-bottom: 0.2px solid #888;
+}
+
+#page-path {
+	font-size: 20px;
+	width: 100%;
+	display: inline;
+}
+
+#page-path a {
+  	text-decoration: none;
+  	color: #555;
+}
+
+#page-path a:hover {
+	text-decoration: underline;
+	color: #0747a5;
+}
+
+#page-title {
+	font-size: 50px;
+	font-weight: bold;
+	padding: 10px;
+	margin: 2px;
+}
+
+#page-date {
+	margin-top: 10px;
+	color: #777;
+	padding-bottom: 10px;
+}
+
+#page-content {
+	padding: 5px;
+	font-size: 23px;
+	color: #333;
+	width: 98%;
+	padding-left: 30px;
+}
+
+footer {
+	width: 100%;
+	display: block;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	margin: 5px;
+	padding: 5px;
+}
+
+@media only screen and (max-width: 1100px) {	
+
+ 	#v-nav-bar {
+ 		width: 8%;
+ 	}
+
+ 	#sidebar {
+		width: 85%;
+	}
+
+	#content {
+		width: 92%;
+	}
+
+	
+}
+
+@media only screen and (max-width: 1240px) {
+
+	#content {
+		
+	}
+}
+
+@media only screen and (max-width: 430px) {
+
+	#search-box {
+		font-size: 18px;
+	}
+
+	#sidebar-pages {
+		font-size: 17px;
+	}
+}
