@@ -1,0 +1,14 @@
+import Vue from 'vue'
+import App from './App.vue'
+
+import {setFavicon} from '../js/setFavicon.js'
+
+Vue.config.productionTip = false
+
+new Vue({
+  render: h => h(App),
+
+  mounted: function (){
+  	setFavicon();
+  }
+}).$mount('#app')
